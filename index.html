@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>League of Legends Decision Helper</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #askButton {
+            font-weight: bold;
+            background-color: red;
+            color: white;
+            font-size: 24px;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>I see you found The Riddler (Shaco)</h1>
+    <button id="askButton" onclick="askQuestion()">Click me</button>
+    <p id="output"></p>
+
+    <script>
+        let counter = 0;
+        const correctQuestion = "Should I play League of Legends";
+
+        function askQuestion() {
+            let input = prompt("What is your question?");
+            let output = "";
+
+            if (input === correctQuestion) {
+                output = "YESS";
+            } else {
+                counter++;
+                switch(counter) {
+                    case 1:
+                        output = "hmm i think you should ask: " + correctQuestion;
+                        break;
+                    case 2:
+                        output = "okay buddy just ask: " + correctQuestion;
+                        break;
+                    case 3:
+                        output = "TRUST";
+                        break;
+                    case 4:
+                        output = "):";
+                        break;
+                    case 5:
+                        output = "D:";
+                        break;
+                    default:
+                        output = "Math lit major asks what (the what in this case represents the question: Should I play League of Legends";
+                }
+            }
+
+            document.getElementById("output").innerText = output;
+        }
+    </script>
+</body>
+</html>
