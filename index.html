@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_code = """<!DOCTYPE html>
 <html>
 <head>
     <title>League of Legends Decision Helper</title>
@@ -26,12 +26,24 @@
             margin-top: 20px;
             font-size: 20px;
         }
+        #closeButton {
+            font-weight: bold;
+            background-color: gray;
+            color: white;
+            font-size: 18px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
     <h1>I see you found The Riddler (Shaco)</h1>
     <button id="askButton" onclick="askQuestion()">Click me</button>
     <p id="output"></p>
+    <button id="closeButton" onclick="closePage()">Close</button>
 
     <script>
         let counter = 0;
@@ -68,6 +80,25 @@
 
             document.getElementById("output").innerText = output;
         }
+
+        function closePage() {
+            // Attempt to close. Works only if page was opened by script.
+            window.open('', '_self', '');
+            window.close();
+            // Fallback alert if still open after 200 ms
+            setTimeout(function() {
+                if (!window.closed) {
+                    alert("If this tab didn't close automatically, please close it manually.");
+                }
+            }, 200);
+        }
     </script>
 </body>
 </html>
+"""
+
+file_path = '/mnt/data/league-helper-close.html'
+with open(file_path, 'w') as f:
+    f.write(html_code)
+
+file_path
