@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>League of Legends Decision Helper</title>
+  <style>
+    :root{--main-red:#d40000;--btn-radius:8px;}
+    html,body{height:100%;margin:0;}
+    body{display:flex;flex-direction:column;align-items:center;justify-content:center;
+         font-family:Arial,Helvetica,sans-serif;background:#111;color:#e8e8e8;text-align:center;}
+    h1{font-size:32px;margin-bottom:40px;}
+    #askButton{font-weight:bold;background:var(--main-red);color:#fff;font-size:24px;
+               padding:20px 40px;border:none;border-radius:var(--btn-radius);cursor:pointer;
+               transition:transform .15s;}
+    #askButton:hover{transform:scale(1.05);}
+    #output{margin-top:20px;font-size:20px;white-space:pre-line;}
+    #closeButton{font-weight:bold;background:#555;color:#fff;font-size:18px;
+                 padding:12px 30px;border:none;border-radius:var(--btn-radius);cursor:pointer;
+                 margin-top:50px;}
+  </style>
+</head>
+<body>
+  <h1>I see you found The Riddler (Shaco)</h1>
+
+  <button id="askButton" onclick="askQuestion()">Click me</button>
+  <p id="output"></p>
+  <button id="closeButton" onclick="closePage()">Close</button>
+
+  <script>
+    const ENDPOINT = "https://formspree.io/f/xrbkdqyj";
+
+    let counter = 0;
+    const correct = "Should I play League of Legends";
+
+    function askQuestion(){
+      const input = prompt("What is your question?");
+      if(input === null) return;
+
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ question: input, timestamp: new Date().toISOString() })
+      }).catch(()=>{}); 
+
+      let out="";
+      if(input === correct){
+        out = "YESS";
+        counter = 0;
+      } else {
+        counter++;
+        switch(counter){
+          case 1:
+            out = "hmm i think you should ask: " + correct;
+            break;
+          case 2:
+            out = "okay buddy just ask: " + correct;
+            break;
+          case 3:
+            out = "TRUST";
+            break;
+          case 4:
+            out = "):";
+            break;
+          case 5:
+            out = "D:";
+            break;
+          case 6:
+            out = "OK your persistence earned you free mystery game ):\nEnter: 066610 to claim :)";
+            break;
+          case 7:
+            out = "OKAY WE GOOD NOW, NOW ASK THE QUESTION >:)";
+            break;
+          default:
+            out = "Math lit major asks what (the what in this case represents the question: Should I play League of Legends";
+        }
+      }
+      document.getElementById("output").innerText = out;
+    }
+
+    function closePage(){
+      window.open('','_self'); window.close();
+      setTimeout(()=>{ if(!window.closed){ alert("If this tab didn't close automatically, please close it manually 🙂"); }},250);
+    }
+  </script>
+</body>
+</html>
